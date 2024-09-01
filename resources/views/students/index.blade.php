@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Estudiantes</title>
+        <title>Lista de Estudiantes</title>
         @vite('resources/css/app.css')
     </head>
 
@@ -26,9 +26,9 @@
                     <thead>
                         <tr>
                             <th class="px-4 py-2 text-gray-900 dark:text-white text-center">ID</th>
-                            <th class="px-4 py-2 text-gray-900 dark:text-white text-center">NAME</th>
-                            <th class="px-4 py-2 text-gray-900 dark:text-white text-center">AGE</th>
-                            <th class="px-4 py-2 text-gray-900 dark:text-white text-center">ACTIONS</th>
+                            <th class="px-4 py-2 text-gray-900 dark:text-white text-center">NOMBRE</th>
+                            <th class="px-4 py-2 text-gray-900 dark:text-white text-center">EDAD</th>
+                            <th class="px-4 py-2 text-gray-900 dark:text-white text-center">ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
