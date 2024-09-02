@@ -1,8 +1,13 @@
 <?php
 
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AutenticacionController;
+use App\Http\Controllers\ClientesController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [StudentController::class, 'index'])->name('students.index');
+Route::get('/', function () {
+    return view('landingPage');
+});
 
-Route::resource('students', StudentController::class);
+Route::get('/login', [AutenticacionController::class, 'index']);
+Route::get('/registro', [AutenticacionController::class, 'registro']);
+Route::resource('clientes', ClientesController::class);
