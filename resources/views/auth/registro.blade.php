@@ -40,8 +40,8 @@
 
             <input type="hidden" id="id_rol" name="id_rol" value=3>
 
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg text-lg">Registrarse</button>
-            <p class="mt-4 text-center text-gray-600">¿Ya tienes una cuenta? <a href="/login" class="text-blue-600 hover:text-blue-500">Inicia sesión aquí</a></p>
+            <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-800 duration-300 text-white py-2 px-4 rounded-lg text-lg">Registrarse</button>
+            <p class="mt-4 text-center text-gray-600">¿Ya tienes una cuenta? <a href="/login" class="text-cyan-600 hover:text-cyan-500">Inicia sesión aquí</a></p>
         </form>
     </div>
 </body>
