@@ -1,3 +1,13 @@
+@extends('adminlte::page')
+
+@section('content_header')
+<div class="flex justify-center items-center text-center">
+    <h1>Editar Cliente</h1>
+</div>
+@stop
+
+
+@section('content')
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,8 +21,8 @@
 <body>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6 lg:p-8">
+        <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
+            <div class="dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6 lg:p-8">
                 <form action="{{ route('clientes.update', $cliente->id) }}" method="POST" class="max-w-sm mx-auto">
                     @csrf
                     @method('PUT')
@@ -52,3 +62,4 @@
 </body>
 
 </html>
+@stop

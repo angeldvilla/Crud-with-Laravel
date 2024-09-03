@@ -1,3 +1,13 @@
+@extends('adminlte::page')
+
+@section('content_header')
+<div class="flex justify-center items-center text-center">
+    <h1>Clientes</h1>
+</div>
+@stop
+
+
+@section('content')
 <!DOCTYPE html>
 <html lang="es">
 
@@ -16,7 +26,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="mb-4">
                     <a href="{{ route('clientes.create') }}" class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">CREAR NUEVO CLIENTE</a>
                 </div>
@@ -68,3 +78,4 @@
 </body>
 
 </html>
+@stop
