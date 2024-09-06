@@ -8,10 +8,11 @@ use Illuminate\Support\Str;
 
 class Usuarios extends Model
 {
+    use HasFactory;
+    
     protected $keyType = 'string';
     public $incrementing = false;
 
-    use HasFactory;
     protected $fillable = [
         'id',
         'nombre',
