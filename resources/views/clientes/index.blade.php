@@ -2,8 +2,14 @@
 
 @section('content_header')
 <div class="flex justify-center items-center text-center">
-    <h1>Clientes</h1>
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <h1>Clientes</h1>
+        </div>
+    </div>
+    <a href="{{ route('clientes.create') }}" class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-full">CREAR NUEVO CLIENTE</a>
 </div>
+
 @stop
 
 
@@ -26,10 +32,10 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="mb-4">
+            <div class="dark:bg-gray-700 overflow-hidden shadow-xl sm:rounded-lg">
+                <!-- <div class="mb-4">
                     <a href="{{ route('clientes.create') }}" class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">CREAR NUEVO CLIENTE</a>
-                </div>
+                </div> -->
 
                 @if (session('success'))
                 <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
