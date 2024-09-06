@@ -22,7 +22,7 @@
 
     <div class="py-12">
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
-            <div class="dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6 lg:p-8">
+            <div class="dark:bg-gray-700 overflow-hidden shadow-xl sm:rounded-lg p-6 lg:p-8">
                 <form action="{{ route('clientes.update', $cliente->id) }}" method="POST" class="max-w-sm mx-auto">
                     @csrf
                     @method('PUT')
