@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Envios </b>Dashboard',
+    'logo_img' => 'https://static.vecteezy.com/system/resources/previews/014/034/125/original/truck-box-delivery-3d-illustration-png.png', /* vendor/adminlte/dist/img/AdminLTELogo.png  */
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'Envios Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -113,8 +113,8 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
+            'path' => 'https://static.vecteezy.com/system/resources/previews/014/034/125/original/truck-box-delivery-3d-illustration-png.png', /* vendor/adminlte/dist/img/AdminLTELogo.png */
+            'alt' => 'Loader Envios Nacionales', /* AdminLTE Preloader Image */
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,
@@ -402,7 +402,7 @@ return [
         ],
         [
             'text' => 'Cerrar sesión',
-            'url' => '/login',
+            'url' => 'login',
             'topnav_right' => true,
             'icon' => 'fas fa-sign-out-alt',
         ],
@@ -415,7 +415,7 @@ return [
         ],
         [
             'text' => 'Envíos',
-            'url' => 'clientes',
+            'url' => 'envios',
             'icon' => 'fas fa-fw fa-shipping-fast',
         ],
         [
@@ -425,12 +425,12 @@ return [
         ],
         [
             'text' => 'Empleados',
-            'url' => 'clientes',
+            'url' => 'empleados',
             'icon' => 'fas fa-fw fa-briefcase',
         ],
         [
             'text' => 'Usuarios',
-            'url' => 'clientes',
+            'url' => 'usuarios',
             'icon' => 'fas fa-fw fa-user',
         ],
     ],
