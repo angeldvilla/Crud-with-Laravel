@@ -1,0 +1,13 @@
+php artisan serve
+npm run dev
+composer install
+npm i
+-------------
+php artisan migrate
+php artisan db:seed
+php artisan make migrate: migrate
+php artisan make model: model
+---------------
+php artisan test Tests/Unit/ClientesTest.php
+vendor/bin/phpunit --filter testStoreMethodCreatesCliente tests/Unit/ClientesCrudTests.php
+php artisan test --filter --env=testing
