@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('password');
             $table->foreignId('id_rol')->references('id')->on('roles')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
