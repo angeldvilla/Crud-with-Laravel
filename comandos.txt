@@ -4,10 +4,12 @@ composer install
 npm i
 -------------
 php artisan migrate
+php artisan migrate --env=testing
 php artisan db:seed
+php artisan db:seed --env=testing
 php artisan make migrate: migrate
 php artisan make model: model
 ---------------
 php artisan test Tests/Unit/ClientesTest.php
 vendor/bin/phpunit --filter testStoreMethodCreatesCliente tests/Unit/ClientesCrudTests.php
-php artisan test --filter --env=testing
+php artisan test Tests/Unit/ClientesTest.php --env=testing
