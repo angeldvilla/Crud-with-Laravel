@@ -11,7 +11,16 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
         <h2 class="text-2xl font-bold mb-6 text-center">Registro</h2>
-        <form action="#" method="POST">
+        @if ($errors->any())
+        <div class="mb-4">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li class="text-red-600">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        <form action="{{ route('registro') }}" method="POST">
             @csrf
             <div class="mb-4">
                 <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
