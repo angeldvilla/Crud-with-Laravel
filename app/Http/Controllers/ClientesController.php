@@ -3,20 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuarios;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ClientesController extends Controller
 {
+
+    public function home()
+    {
+        if (Auth::check()) {
+            return view('clientes.home')->with('user', Auth::user());
+        }
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
+    }
+
+
     public function index()
     {
-       $clientes = Usuarios::where('id_rol', 3)->get();
-        
-       return view('clientes.index', compact('clientes'));
+        $clientes = Usuarios::where('id_rol', 3)->get();
+
+        return view('clientes.index', compact('clientes'));
     }
 
     public function create()
     {
-       return view('clientes.crear');
+        return view('clientes.crear');
     }
 
     public function store(Request $request)
@@ -33,7 +44,7 @@ class ClientesController extends Controller
 
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
-        
+
         Usuarios::create($data);
 
         return redirect()->route('clientes.index')->with('success', 'Cliente creado exitosamente.');
