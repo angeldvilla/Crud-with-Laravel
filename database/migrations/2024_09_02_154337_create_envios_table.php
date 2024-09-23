@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('envios', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('origen');
             $table->string('destinatario');
-            $table->string('peso')->unique();
+            $table->string('peso');
             $table->string('alto');
             $table->string('ancho');
             $table->string('profundidad');
-            $table->string('volumen');
+            $table->decimal('volumen', 10, 2);
             $table->string('costo');
             $table->longText('descripcion');
+            $table->timestamps();
         });
     }
 

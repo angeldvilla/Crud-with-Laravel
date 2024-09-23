@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('clientes_envios', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->primary();
             // Definir las claves foráneas
             $table->foreignUuid('id_cliente')->references('id')->on('usuarios')->onDelete('cascade');
-            $table->foreignId('id_envio')->references('id')->on('envios')->onDelete('cascade');
+            $table->foreignUuid('id_envio')->references('id')->on('envios')->onDelete('cascade');
             $table->string('estado');
             $table->timestamps();
         });
