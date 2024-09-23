@@ -10,17 +10,17 @@ use Illuminate\Http\Request;
 
 class AutenticacionController extends Controller
 {
-   public function index()
+   public function showFormLogin()
    {
       return view('auth.login');
    }
 
-   public function registro()
+   public function showFormRegister()
    {
       return view('auth.registro');
    }
 
-   public function store(Request $request)
+   public function register(Request $request)
    { {
          $request->validate([
             'nombre' => 'required|string|max:255',
