@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('title', 'Clientes')
+
 @section('content_header')
 <div class="flex justify-center items-center text-center">
     <div class="py-6">

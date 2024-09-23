@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title')
+@section('title', 'Dashboard')
 
 @section('content_header')
 <div class="flex justify-center items-center text-center">

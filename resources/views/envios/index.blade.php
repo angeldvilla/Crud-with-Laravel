@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('title', 'Envios')
+
 @section('content_header')
 <div class="flex justify-center items-center text-center">
     <div class="py-6">
@@ -7,7 +9,7 @@
             <h1>Envios</h1>
         </div>
     </div>
-    <!-- <a href="{{ route('usuarios.create') }}" class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-full">CREAR NUEVO USUARIO</a> -->
+    <a href="{{ route('usuarios.create') }}" class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-full">CREAR NUEVO ENVIO</a>
 </div>
 @stop
 
