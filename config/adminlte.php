@@ -133,8 +133,8 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_enabled' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
@@ -215,7 +215,7 @@ return [
     */
 
     'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -399,12 +399,6 @@ return [
             'type' => 'navbar-search',
             'text' => 'search',
             'topnav_right' => true,
-        ],
-        [
-            'text' => 'Cerrar sesión',
-            'url' => 'login',
-            'topnav_right' => true,
-            'icon' => 'fas fa-sign-out-alt',
         ],
 
         // Sidebar items:
