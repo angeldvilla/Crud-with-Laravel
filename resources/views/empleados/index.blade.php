@@ -68,14 +68,12 @@
 
                             <td class="border px-4 py-2 text-gray-900 dark:text-white text-center">
                                 <a href="{{ route('empleados.edit', $empleado) }}" class="text-blue-600 hover:text-blue-900">Editar</a>
-                                
-                                @can('delete', $empleado)
+
                                 <form action="{{ route('empleados.destroy', $empleado->id) }}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-900">Eliminar</button>
                                 </form>
-                                @endcan
                             </td>
                         </tr>
                         @endforeach
