@@ -20,7 +20,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'javier.naranjo@example.com',
                 'telefono' => '3001234567',
                 'direccion' => 'Calle 1 #1-1',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 1, // Admin
             ],
             [
@@ -30,7 +30,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'manuel.cardona@example.com',
                 'telefono' => '3001234568',
                 'direccion' => 'Calle 2 #2-2',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 1, // Admin
             ],
             [
@@ -40,7 +40,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'adrian.perez@example.com',
                 'telefono' => '3001234569',
                 'direccion' => 'Calle 3 #3-3',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 1, // Admin
             ],
             [
@@ -50,7 +50,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'juan.sanchez@example.com',
                 'telefono' => '3001234570',
                 'direccion' => 'Calle 4 #4-4',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 1, // Admin
             ],
             
@@ -62,7 +62,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'ana.gomez@example.com',
                 'telefono' => '3001234571',
                 'direccion' => 'Calle 5 #5-5',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 2, // Empleado
             ],
             [
@@ -72,7 +72,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'carlos.martinez@example.com',
                 'telefono' => '3001234572',
                 'direccion' => 'Calle 6 #6-6',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 2, // Empleado
             ],
             [
@@ -82,7 +82,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'laura.lopez@example.com',
                 'telefono' => '3001234573',
                 'direccion' => 'Calle 7 #7-7',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 2, // Empleado
             ],
             [
@@ -92,7 +92,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'pedro.hernandez@example.com',
                 'telefono' => '3001234574',
                 'direccion' => 'Calle 8 #8-8',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 2, // Empleado
             ],
             [
@@ -102,7 +102,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'marta.rodriguez@example.com',
                 'telefono' => '3001234575',
                 'direccion' => 'Calle 9 #9-9',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 2, // Empleado
             ],
             [
@@ -112,7 +112,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'andres.diaz@example.com',
                 'telefono' => '3001234576',
                 'direccion' => 'Calle 10 #10-10',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 2, // Empleado
             ],
             
@@ -124,7 +124,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'sofia.ramirez@example.com',
                 'telefono' => '3001234577',
                 'direccion' => 'Calle 11 #11-11',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 3, // Cliente
             ],
             [
@@ -134,7 +134,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'miguel.torres@example.com',
                 'telefono' => '3001234578',
                 'direccion' => 'Calle 12 #12-12',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 3, // Cliente
             ],
             [
@@ -144,7 +144,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'lucia.vargas@example.com',
                 'telefono' => '3001234579',
                 'direccion' => 'Calle 13 #13-13',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 3, // Cliente
             ],
             [
@@ -154,7 +154,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'david.morales@example.com',
                 'telefono' => '3001234580',
                 'direccion' => 'Calle 14 #14-14',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 3, // Cliente
             ],
             [
@@ -164,7 +164,7 @@ class UsuariosSeeder extends Seeder
                 'correo' => 'elena.cruz@example.com',
                 'telefono' => '3001234581',
                 'direccion' => 'Calle 15 #15-15',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'id_rol' => 3, // Cliente
             ],
         ]);
