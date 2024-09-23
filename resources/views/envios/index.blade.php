@@ -9,7 +9,7 @@
             <h1>Envios</h1>
         </div>
     </div>
-    <a href="{{ route('usuarios.create') }}" class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-full">CREAR NUEVO ENVIO</a>
+    <a href="{{ route('envios.create') }}" class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-full">CREAR NUEVO ENVIO</a>
 </div>
 @stop
 
@@ -54,6 +54,7 @@
                             <th class="px-4 py-2 text-gray-900 dark:text-white text-center">VOLUMEN</th>
                             <th class="px-4 py-2 text-gray-900 dark:text-white text-center">COSTO</th>
                             <th class="px-4 py-2 text-gray-900 dark:text-white text-center">DESCRIPCION</th>
+                            <th class="px-4 py-2 text-gray-900 dark:text-white text-center">ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,7 +72,8 @@
                             <td class="border px-4 py-2 text-gray-900 dark:text-white text-center">{{ $envio->descripcion }}</td>
 
                             <td class="border px-4 py-2 text-gray-900 dark:text-white text-center">
-                                <a href="{{ route('envios.edit', $envio, $envio->rol_id) }}" class="text-blue-600 hover:text-blue-900">Editar</a>
+                            <a href="{{ route('envios.show', $envio->id) }}" class="text-yellow-600 hover:text-blue-900">Ver</a>
+                                <a href="{{ route('envios.edit', $envio->id) }}" class="text-blue-600 hover:text-blue-900">Editar</a>
                                 <form action="{{ route('envios.destroy', $envio->id) }}" method="POST" class="inline-block">
                                     @csrf
                                     @method('DELETE')
