@@ -411,21 +411,25 @@ return [
             'text' => 'Envíos',
             'url' => 'dashboard/envios',
             'icon' => 'fas fa-fw fa-shipping-fast',
+            'active' => ['dashboard/envios/*'],
         ],
         [
             'text' => 'Clientes',
             'url' => 'dashboard/clientes',
             'icon' => 'fas fa-fw fa-users',
+            'active' => ['dashboard/clientes/*', 'clientes/*'],
         ],
         [
             'text' => 'Empleados',
             'url' => 'dashboard/empleados',
             'icon' => 'fas fa-fw fa-briefcase',
+            'active' => ['dashboard/empleados', 'empleados/*'],
         ],
         [
             'text' => 'Usuarios',
             'url' => 'dashboard/usuarios',
             'icon' => 'fas fa-fw fa-user',
+            'active' => ['dashboard/usuarios', 'usuarios/*'],
         ],
     ],
 
