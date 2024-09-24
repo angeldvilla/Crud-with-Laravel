@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Usuarios;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\RegistroExitosoMail;
+use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Http\Request;
 
@@ -35,7 +37,14 @@ class AutenticacionController extends Controller
          $data = $request->all();
          $data['password'] = Hash::make($request->password); // Encriptar la contraseña
 
-         Usuarios::create($data); // Crear el usuario
+         $usuario = Usuarios::create($data); // Crear el usuario
+
+         // Enviar el correo
+         try {
+            Mail::to($usuario->correo)->send(new RegistroExitosoMail($usuario));
+         } catch (\Exception $e) {
+            return redirect()->route('login')->with('error', 'Registro exitoso, pero no pudimos enviar el correo.');
+         }
 
          return redirect()->route('login')->with('success', 'Registro exitoso. Ahora puedes iniciar sesión.');
       }
