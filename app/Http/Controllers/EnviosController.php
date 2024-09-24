@@ -6,27 +6,42 @@ use App\Models\ClientesEnvios;
 use App\Models\Envios;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EnviosController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
         $envios = Envios::all();
 
-        return view('envios.index', compact('envios'));
+        if (Auth::check() && $user) {
+            return view('envios.index', compact('envios'));
+        }
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
     }
 
     public function show(Envios $envio)
     {
+        $user = Auth::user();
         $clienteEnvio = ClientesEnvios::where('id_envio', $envio->id)->first();
         $cliente = Usuarios::where('id', $clienteEnvio->id_cliente)->first();
-        return view('envios.detalle', compact('envio', 'clienteEnvio', 'cliente'));
+
+        if (Auth::check() && $user) {
+            return view('envios.detalle', compact('envio', 'clienteEnvio', 'cliente'));
+        }
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
     }
 
     public function create()
     {
+        $user = Auth::user();
         $clientes = Usuarios::where('id_rol', 3)->get();
-        return view('envios.crear', compact('clientes'));
+
+        if (Auth::check() && $user) {
+            return view('envios.crear', compact('clientes'));
+        }
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
     }
 
     public function store(Request $request)
@@ -57,6 +72,7 @@ class EnviosController extends Controller
 
     public function edit(Envios $envio)
     {
+        $user = Auth::user();
         $cliente = Usuarios::where('id_rol', 3)->get();
         $clienteEnvio = ClientesEnvios::where('id_envio', $envio->id)->first();
 
@@ -67,7 +83,10 @@ class EnviosController extends Controller
         $id_cliente = $clienteEnvio->id_cliente;
         $estado = $clienteEnvio->estado;
 
-        return view('envios.editar', compact('envio', 'cliente', 'id_cliente', 'estado'));
+        if (Auth::check() && $user) {
+            return view('envios.editar', compact('envio', 'cliente', 'id_cliente', 'estado'));
+        }
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
     }
 
     public function update(Request $request, Envios $envio)
@@ -103,7 +122,12 @@ class EnviosController extends Controller
 
     public function detail(Envios $envio)
     {
+        $user = Auth::user();
         $clienteEnvio = ClientesEnvios::where('id_envio', $envio->id)->first();
-        return view('envios.detalle', compact('envio', 'clienteEnvio'));
+
+        if (Auth::check() && $user) {
+            return view('envios.detalle', compact('envio', 'clienteEnvio'));
+        }
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
     }
 }
