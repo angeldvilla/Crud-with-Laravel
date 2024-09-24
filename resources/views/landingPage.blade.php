@@ -21,7 +21,23 @@
                 <a href="#servicios" class="text-white hover:text-gray-300 px-4">Servicios</a>
                 <a href="#nosotros" class="text-white hover:text-gray-300 px-4">Nosotros</a>
                 <a href="#contacto" class="text-white hover:text-gray-300 px-4">Contacto</a>
+                @if(Auth::check())
+                <div class="relative inline-block text-left">
+                    <button id="dropdownButton" class="bg-white text-blue-900 hover:bg-gray-200 transition duration-300 px-4 py-2 rounded-full ml-4">
+                        {{ Auth::user()->nombre }}
+                    </button>
+                    <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg">
+                        <a href="{{ route('home') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Perifl</a>
+                        <a href="{{ route('mis-envios') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Envíos</a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-white bg-red-500 hover:bg-red-700">Cerrar Sesión</button>
+                        </form>
+                    </div>
+                </div>
+                @else
                 <a href="/login" class="bg-white text-blue-900 hover:bg-gray-200 transition duration-300 px-4 py-2 rounded-full ml-4">Iniciar Sesión</a>
+                @endif
             </div>
         </div>
     </nav>
@@ -117,5 +133,10 @@
         <p>&copy; 2024 Envíos Nacionales. Todos los derechos reservados.</p>
     </footer>
 </body>
+<script>
+    document.getElementById('dropdownButton').addEventListener('click', function() {
+        document.getElementById('dropdownMenu').classList.toggle('hidden');
+    });
+</script>
 
 </html>
