@@ -6,6 +6,7 @@ use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\EnviosController;
 use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('landingPage');
@@ -13,7 +14,7 @@ Route::get('/', function () {
 
 //Autenticación
 Route::get('registro', [AutenticacionController::class, 'showFormRegister'])->name('registro');
-Route::post('registro', [AutenticacionController::class, 'registro']);
+Route::post('registro', [AutenticacionController::class, 'register']);
 Route::get('login', [AutenticacionController::class, 'showFormLogin'])->name('login');
 Route::post('login', [AutenticacionController::class, 'login']);
 Route::post('logout', [AutenticacionController::class, 'logout'])->name('logout');
@@ -22,23 +23,19 @@ Route::post('logout', [AutenticacionController::class, 'logout'])->name('logout'
 Route::middleware('auth')->group(function () {
 
     // Rutas del dashboard disponibles para roles 1 y 2
-    /* if (auth()->user()->id_rol == 1 || auth()->user()->id_rol == 2) { */
-        Route::get('dashboard', function () {
-            return view('dashboard.index');
-        })->name('dashboard');
+    Route::get('dashboard', function () {
+        return view('dashboard.index');
+    })->name('dashboard');
 
-        Route::resource('dashboard/clientes', ClientesController::class);
-        Route::resource('dashboard/empleados', EmpleadosController::class);
-        Route::resource('dashboard/envios', EnviosController::class);
-/*     } */
+    Route::resource('dashboard/clientes', ClientesController::class);
+    Route::resource('dashboard/empleados', EmpleadosController::class);
+    Route::resource('dashboard/envios', EnviosController::class);
 
     // Rutas del dashboard disponibles para roles 1 
-  /*   if (auth()->user()->id_rol == 1) { */
-        Route::resource('dashboard/usuarios', UsuariosController::class);
-    /* } */
+    Route::resource('dashboard/usuarios', UsuariosController::class);
+
 
     // Rutas protegidas del cliente
-  /*   if (auth()->user()->id_rol == 3) { */
-        Route::get('home', [ClientesController::class, 'home'])->name('home');
-    /* } */
+    Route::get('home', [ClientesController::class, 'home'])->name('home');
+    Route::get('mis-envios', [ClientesController::class, 'mis_envios'])->name('mis-envios');
 });
