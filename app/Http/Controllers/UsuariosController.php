@@ -5,21 +5,31 @@ namespace App\Http\Controllers;
 use App\Models\Roles;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsuariosController extends Controller
 {
     public function index()
     {
+        $user = Auth::user()->id_rol == 1;
         $usuarios = Usuarios::all();
 
-        return view('usuarios.index', compact('usuarios'));
+        if (Auth::check() && $user) {
+            return view('usuarios.index', compact('usuarios'));
+        }
+
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
     }
 
     public function create()
     {
+        $user = Auth::user()->id_rol == 1;
         $roles = Roles::all();
 
-        return view('usuarios.crear', compact('roles'));
+        if (Auth::check() && $user) {
+            return view('usuarios.crear', compact('roles'));
+        }
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
     }
 
     public function store(Request $request)
@@ -44,9 +54,13 @@ class UsuariosController extends Controller
 
     public function edit(Usuarios $usuario)
     {
+        $user = Auth::user()->id_rol == 1;
         $roles = Roles::all();
 
-        return view('usuarios.editar', compact('usuario') + ['roles' => $roles]);
+        if (Auth::check() && $user) {
+            return view('usuarios.editar', compact('usuario') + ['roles' => $roles]);
+        }
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
     }
 
     public function update(Request $request, Usuarios $usuario)
