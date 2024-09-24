@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\Usuarios;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -18,16 +18,34 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies(); // Registro de las políticas
 
-        Gate::define('view-dashboard', function ($user) {
-            return $user->id_rol == 1 || $user->id_rol == 2;
+        Gate::define('ver-envios', function ($user) {
+            dd($user->id_rol);
+            if ($user->id_rol = 1 || $user->id_rol = 2) {
+                return true;
+            }
+            return false;
         });
 
-        Gate::define('delete-usuarios', function (Usuarios $user) {
-            return $user->id_rol == 1;
+        Gate::define('ver-clientes', function ($user) {
+
+            if ($user->id_rol = 1 || $user->id_rol = 2) {
+                return true;
+            }
+            return false;
         });
 
-        Gate::define('delete-empleados', function (Usuarios $user) {
-            return $user->id_rol == 1;
+        Gate::define('ver-empleados', function ($user) {
+            if ($user->id_rol = 1 || $user->id_rol = 2) {
+                return true;
+            }
+            return false;
+        });
+
+        Gate::define('ver-usuarios', function ($user) {
+            if ($user->id_rol = 1) {
+                return true;
+            }
+            return false;
         });
     }
 }
