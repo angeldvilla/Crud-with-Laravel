@@ -26,7 +26,7 @@
                         {{ Auth::user()->nombre }}
                     </button>
                     <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg">
-                        <a href="{{ route('home') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Perifl</a>
+                        <a href="{{ route('home') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Perfil</a>
                         <a href="{{ route('mis-envios') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Envíos</a>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
@@ -43,6 +43,17 @@
 
     <!-- Contenedor del Perfil -->
     <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8 mt-20 mx-auto">
+
+
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 
         <!-- Título de Bienvenida -->
         <div class="text-center mb-8">
