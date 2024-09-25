@@ -104,6 +104,16 @@
     <div id="editProfileModal" class="flex fixed inset-0 bg-gray-900 bg-opacity-75 items-center justify-center hidden z-50">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
             <h2 class="text-2xl font-bold mb-4">Editar Perfil</h2>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <form action="{{ route('clientes.update',  Auth::user()->id ) }}" method="POST">
                 @csrf
                 @method('PUT')

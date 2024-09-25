@@ -47,6 +47,16 @@
         <h1 class="text-4xl font-bold text-black">Mis Envíos</h1>
     </div>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <div class="overflow-x-auto mb-32">
         <table class="table-auto w-96 border-2 border-gray-800">
             <thead>
