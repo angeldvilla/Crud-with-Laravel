@@ -15,10 +15,13 @@ class EnviosController extends Controller
         $user = Auth::user();
         $envios = Envios::all();
 
-        if (Auth::check() && $user) {
+        if (Auth::check() && $user->id_rol == 1 || $user->id_rol == 2) {
             return view('envios.index', compact('envios'));
+        } else if (Auth::check() && $user->id_rol == 3) {
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
         }
-        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
     }
 
     public function show(Envios $envio)
