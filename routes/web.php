@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AutenticacionController;
 use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\EnviosController;
 use App\Http\Controllers\UsuariosController;
@@ -23,9 +24,7 @@ Route::post('logout', [AutenticacionController::class, 'logout'])->name('logout'
 Route::middleware('auth')->group(function () {
 
     // Rutas del dashboard disponibles para roles 1 y 2
-    Route::get('dashboard', function () {
-        return view('dashboard.index');
-    })->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('dashboard/clientes', ClientesController::class);
     Route::resource('dashboard/empleados', EmpleadosController::class);
