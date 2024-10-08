@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
 
     // Rutas del dashboard disponibles para roles 1 y 2
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('clientes/export-excel', [ClientesController::class, 'exportExcel'])->name('clientes.export-excel');
+    Route::get('clientes/export-pdf', [ClientesController::class, 'exportPDF'])->name('clientes.export-pdf');
 
     Route::resource('dashboard/clientes', ClientesController::class);
     Route::resource('dashboard/empleados', EmpleadosController::class);
