@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ClientesExport;
 use App\Models\ClientesEnvios;
 use App\Models\Envios;
 use App\Models\Usuarios;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Common\Entity\Cell;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ClientesController extends Controller
 {
@@ -17,7 +21,7 @@ class ClientesController extends Controller
 
         if (Auth::check() && $user->id_rol == 3) {
             return view('clientes.home');
-        } else if (Auth::check() && $user->id_rol == 1 || $user->id_rol == 2) {
+        } else if (Auth::check() && ($user->id_rol == 1 || $user->id_rol == 2)) {
             return redirect()->route('/');
         } else {
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
@@ -39,13 +43,65 @@ class ClientesController extends Controller
             if ($envio) {
                 return view('clientes.misEnvios', compact('envio', 'cliente_envio'));
             }
-        } else if (Auth::check() && $user->id_rol == 1 || $user->id_rol == 2) {
+        } else if (Auth::check() && ($user->id_rol == 1 || $user->id_rol == 2)) {
             return redirect()->route('/');
         } else {
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
         }
     }
 
+    public function exportExcel()
+    {
+        $user = Auth::user();
+        if (Auth::check() && ($user->id_rol == 1 || $user->id_rol == 2)) {
+
+        $clientes = Usuarios::where('id_rol', 3)->get();
+        if ($clientes->isEmpty()) {
+            return redirect()->route('clientes.index')->with('error', 'No hay clientes para exportar.');
+        }
+
+        // Crea un escritor para archivos XLSX
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $writer->openToBrowser('clientes.xlsx'); // Este método enviará el archivo al navegador
+
+        // Escribir encabezados
+        $header = [Cell::fromString('Nombre'), Cell::fromString('Apellido'), Cell::fromString('Correo'), Cell::fromString('Teléfono'), Cell::fromString('Dirección')];
+        $writer->addRow($header);
+
+        // Escribir datos
+        foreach ($clientes as $cliente) {
+            $row = [
+                Cell::fromString($cliente->nombre),
+                Cell::fromString($cliente->apellido),
+                Cell::fromString($cliente->correo),
+                Cell::fromString($cliente->telefono),
+                Cell::fromString($cliente->direccion)
+            ];
+            $writer->addRow($row);
+        }
+
+        $writer->close(); 
+        exit;
+        } else if (Auth::check() && $user->id_rol == 3) {
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('login')->with('error', 'No puedes ingresar a esta ruta.');
+        }
+    }
+
+    public function exportPDF()
+    {
+        $user = Auth::user();
+        if (Auth::check() && ($user->id_rol == 1 || $user->id_rol == 2)) {
+            $clientes = Usuarios::where('id_rol', 3)->get();
+            $pdf = PDF::loadView('clientes.pdf', compact('clientes'));
+            return $pdf->download('clientes.pdf');
+        } else if (Auth::check() && $user->id_rol == 3) {
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('login')->with('error', 'No puedes ingresar a esta ruta.');
+        }
+    }
 
 
     public function index()
@@ -53,7 +109,7 @@ class ClientesController extends Controller
         $user = Auth::user();
         $clientes = Usuarios::where('id_rol', 3)->get();
 
-        if (Auth::check() && $user->id_rol == 1 || $user->id_rol == 2) {
+        if (Auth::check() && ($user->id_rol == 1 || $user->id_rol == 2)) {
             return view('clientes.index', compact('clientes'));
         } else if (Auth::check() && $user->id_rol == 3) {
             return redirect()->route('home');
@@ -66,7 +122,7 @@ class ClientesController extends Controller
     {
         $user = Auth::user();
 
-        if (Auth::check() && $user->id_rol == 1 || $user->id_rol == 2) {
+        if (Auth::check() && ($user->id_rol == 1 || $user->id_rol == 2)) {
             return view('clientes.crear');
         } else if (Auth::check() && $user->id_rol == 3) {
             return redirect()->route('home');
