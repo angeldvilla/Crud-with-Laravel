@@ -52,6 +52,19 @@
                 @endif
                 <div class="overflow-x-auto">
 
+                <div class="flex justify-between items-center mb-8">
+                    <div class="flex justify-start">
+                        <a href="{{ route('envios.export-excel') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            Exportar Excel
+                        </a>
+                    </div>
+                    <div class="flex justify-end">
+                        <a href="{{ route('envios.export-pdf') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            Exportar PDF
+                        </a>
+                    </div>
+                </div>
+
                     <table class="table-auto w-full">
                         <thead>
                             <tr>
