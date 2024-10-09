@@ -56,21 +56,22 @@
                     <p><strong>Estado del Envío:</strong> <span class={{$clienteEnvio->estado == "en camino" ? "text-yellow-500" : ($clienteEnvio->estado == "pendiente" ? "text-red-500" : "text-green-500")}}>{{ $clienteEnvio->estado }}</span></p>
                 </div>
 
-                <div class="flex justify-center items-center mt-4">
-                    <a href="{{ route('envios.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Volver
-                    </a>
+                    <div class="flex justify-center items-center mt-4">
+                        <a href="{{ route('envios.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Volver
+                        </a>
+                    </div>
+
+                    <div class="flex justify-center items-center mt-4 gap-10">
+                        <a href="{{ route('detalle-envio.export-excel', $envio->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            Exportar Excel
+                        </a>
+        
+                        <a href="{{ route('detalle-envio.export-pdf', $envio->id) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            Exportar PDF
+                        </a>
+                    </div>
                 </div>
-
-                <!-- <div class="flex justify-center items-center mt-4 gap-10">
-                <a href="{{ route('envios.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Volver
-                    </a>
-                    <a href="{{ route('envios.index') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        Cancelar Envío
-                    </a>
-                </div> -->
-
             </div>
         </div>
 
