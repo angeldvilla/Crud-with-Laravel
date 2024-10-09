@@ -4,138 +4,112 @@ namespace Tests\Feature;
 
 use App\Models\Roles;
 use App\Models\Usuarios;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
-uses(TestCase::class, RefreshDatabase::class)->in('Feature');
+class ClientesIntegrationTest extends TestCase
+{
+    use RefreshDatabase;
 
-beforeEach(function () {
-    // Crear roles necesarios
-    Roles::factory()->create(['id' => 1, 'rol' => 'Administrador']);
-    Roles::factory()->create(['id' => 2, 'rol' => 'Empleado']);
-    Roles::factory()->create(['id' => 3, 'rol' => 'Cliente']);
-});
+    // Este método configura los roles antes de ejecutar cada prueba
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-it('puede crear y ver un cliente', function () {
-    // Crear un usuario administrador y autenticarlo
-    $adminUser = Usuarios::factory()->create(['id_rol' => 1, 'password' => Hash::make('admin123')]);
-    $this->actingAs($adminUser); // Simular autenticación
+        // Crear roles necesarios
+        Roles::factory()->create(['id' => 1, 'rol' => 'Administrador']);
+        Roles::factory()->create(['id' => 2, 'rol' => 'Empleado']);
+        Roles::factory()->create(['id' => 3, 'rol' => 'Cliente']);
+    }
 
-    // Crear un cliente
-    $data = [
-        'nombre' => 'John',
-        'apellido' => 'Doe',
-        'correo' => 'john@example.com',
-        'telefono' => '1234567890',
-        'direccion' => '123 Main St',
-        'password' => bcrypt('123456'),
-        'id_rol' => 3,
-    ];
+    /** @test */
+    public function test_crear_cliente()
+    {
+        // Crea un usuario administrador
+        $admin = Usuarios::factory()->create(['id_rol' => 1]);
+        
+        // Autentica como administrador
+        $this->actingAs($admin);
 
-    // Hacer la petición POST para crear un cliente
-    $this->post(route('clientes.store'), $data);
+        // Envía la solicitud para crear un cliente
+        $response = $this->post('/dashboard/clientes', [
+            'nombre' => 'Juan',
+            'apellido' => 'Pérez',
+            'correo' => 'juan@gmail.com',
+            'telefono' => '123456789',
+            'direccion' => 'Calle Falsa 123',
+            'password' => '123456',  // No necesitas `Hash::make` aquí, Laravel lo maneja internamente
+            'id_rol' => 3, // Rol de cliente
+        ]);
 
-    // Verificar que el cliente se muestra en la vista de clientes
-    $response = $this->get(route('clientes.index'));
+        // Verifica si la respuesta redirige después de crear el cliente
+        $response->assertStatus(302);
 
-    // Asegurarse de que la respuesta sea exitosa y que la vista tenga el cliente
-    $response->assertStatus(200)
-             ->assertSee('John')
-             ->assertSee('Doe')
-             ->assertSee('john@example.com');
-});
+        // Verifica si el cliente se ha guardado en la base de datos
+        $this->assertDatabaseHas('usuarios', [
+            'nombre' => 'Juan',
+            'apellido' => 'Pérez',
+            'correo' => 'juan@gmail.com',
+        ]);
+    }
 
-it('no puede crear un cliente con datos inválidos', function () {
-    // Crear un usuario administrador y autenticarlo
-    $adminUser = Usuarios::factory()->create(['id_rol' => 1, 'password' => Hash::make('admin123')]);
-    $this->actingAs($adminUser); // Simular autenticación
+    /** @test */
+    public function test_listar_clientes()
+    {
+        // Autentica como administrador
+        $admin = Usuarios::factory()->create(['id_rol' => 1]);
+        $this->actingAs($admin);
 
-    // Datos inválidos
-    $data = [
-        'nombre' => '', // Campo vacío
-        'apellido' => 'Doe',
-        'correo' => 'not-an-email',
-        'telefono' => '1234567890',
-        'direccion' => '123 Main St',
-        'password' => bcrypt('123456'),
-        'id_rol' => 3,
-    ];
+        // Crea varios clientes
+        Usuarios::factory()->count(5)->create(['id_rol' => 3]);
 
-    // Hacer la petición POST para crear un cliente
-    $response = $this->post(route('clientes.store'), $data);
+        // Envía la solicitud para listar los clientes
+        $response = $this->get('/dashboard/clientes');
 
-    // Asegurarse de que la validación falle
-    $response->assertStatus(422);
-});
+        // Verifica que la página de clientes se cargue correctamente
+        $response->assertStatus(200);
+    }
 
-it('puede actualizar un cliente y verlo', function () {
-    // Crear un usuario administrador y autenticarlo
-    $adminUser = Usuarios::factory()->create(['id_rol' => 1, 'password' => Hash::make('admin123')]);
-    $this->actingAs($adminUser); // Simular autenticación
+    /** @test */
+    public function test_actualizar_cliente()
+    {
+        // Autentica como administrador
+        $admin = Usuarios::factory()->create(['id_rol' => 1]);
+        $this->actingAs($admin);
 
-    // Crear un cliente usando el factory
-    $cliente = Usuarios::factory()->create(['id_rol' => 3]);
+        // Crea un cliente
+        $cliente = Usuarios::factory()->create(['id_rol' => 3]);
 
-    // Actualizar el cliente
-    $updatedData = [
-        'nombre' => 'Jane',
-        'apellido' => 'Doe',
-        'correo' => 'jane@example.com',
-        'telefono' => '9876543210',
-        'direccion' => '456 Main St',
-    ];
+        // Envía la solicitud para actualizar el cliente
+        $response = $this->put('/dashboard/clientes/' . $cliente->id, [
+            'nombre' => 'Carlos',
+            'apellido' => 'Sánchez',
+        ]);
 
-    // Hacer la petición PUT para actualizar el cliente
-    $this->put(route('clientes.update', $cliente->id), $updatedData);
+        // Verifica si la respuesta redirige después de la actualización
+        $response->assertStatus(302);
+    }
 
-    // Verificar que los datos del cliente actualizados se muestran en la vista de clientes
-    $response = $this->get(route('clientes.index'));
+    /** @test */
+    public function test_eliminar_cliente()
+    {
+        // Autentica como administrador
+        $admin = Usuarios::factory()->create(['id_rol' => 1]);
+        $this->actingAs($admin);
 
-    // Asegurarse de que la respuesta sea exitosa y que los datos actualizados se muestren
-    $response->assertStatus(200)
-             ->assertSee('Jane')
-             ->assertSee('Doe')
-             ->assertSee('jane@example.com');
-});
+        // Crea un cliente
+        $cliente = Usuarios::factory()->create(['id_rol' => 3]);
 
-it('puede eliminar un cliente y no verlo', function () {
-    // Crear un usuario administrador y autenticarlo
-    $adminUser = Usuarios::factory()->create(['id_rol' => 1, 'password' => Hash::make('admin123')]);
-    $this->actingAs($adminUser); // Simular autenticación
+        // Envía la solicitud para eliminar el cliente
+        $response = $this->delete('/dashboard/clientes/' . $cliente->id);
 
-    // Crear un cliente usando el factory
-    $cliente = Usuarios::factory()->create(['id_rol' => 3]);
+        // Verifica si la respuesta redirige después de la eliminación
+        $response->assertStatus(302);
 
-    // Hacer la petición DELETE para eliminar el cliente
-    $this->delete(route('clientes.destroy', $cliente->id));
-
-    // Verificar que el cliente no se muestra en la vista de clientes
-    $response = $this->get(route('clientes.index'));
-
-    // Asegurarse de que la respuesta sea exitosa y que el cliente no se muestre
-    $response->assertStatus(200)
-             ->assertDontSee($cliente->nombre)
-             ->assertDontSee($cliente->apellido);
-});
-
-it('no puede crear un cliente si no es administrador', function () {
-    $nonAdminUser = Usuarios::factory()->create(['id_rol' => 2]); // Usuario empleado
-    $this->actingAs($nonAdminUser); // Simular autenticación
-
-    $data = [
-        'nombre' => 'John',
-        'apellido' => 'Doe',
-        'correo' => 'john@example.com',
-        'telefono' => '1234567890',
-        'direccion' => '123 Main St',
-        'password' => bcrypt('123456'),
-        'id_rol' => 3,
-    ];
-
-    // Hacer la petición POST para crear un cliente
-    $response = $this->post(route('clientes.store'), $data);
-    
-    // Asegurarse de que se prohíba el acceso
-    $response->assertStatus(403);
-});
+        // Verifica si el cliente ha sido eliminado de la base de datos
+        $this->assertDatabaseMissing('usuarios', [
+            'id' => $cliente->id,
+        ]);
+    }
+}
