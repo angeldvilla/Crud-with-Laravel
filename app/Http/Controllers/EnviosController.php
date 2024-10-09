@@ -7,6 +7,8 @@ use App\Models\Envios;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class EnviosController extends Controller
 {
@@ -34,6 +36,66 @@ class EnviosController extends Controller
             return view('envios.detalle', compact('envio', 'clienteEnvio', 'cliente'));
         }
         return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tu perfil.');
+    }
+
+    public function exportExcel()
+    {
+        $user = Auth::user();
+        if (Auth::check() && ($user->id_rol == 1 || $user->id_rol == 2)) {
+
+            $envios = Envios::all();
+        if ($envios->isEmpty()) {
+            return redirect()->route('envios.index')->with('error', 'No hay clientes para exportar.');
+        }
+
+        // Crea un escritor para archivos XLSX
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $writer->openToBrowser('envios.xlsx'); // Este método enviará el archivo al navegador
+
+        // Escribir encabezados
+        $headerRow = WriterEntityFactory::createRowFromArray([
+            'Origen', 'Destinatario', 'Peso', 'Alto', 'Ancho', 'Profundidad', 'Volumen', 'Costo', 'Descripción'
+        ]);
+        $writer->addRow($headerRow);
+
+        // Escribir datos
+        foreach ($envios as $envio) {
+            $row = WriterEntityFactory::createRowFromArray([
+                $envio->origen,
+                $envio->destinatario,
+                $envio->peso,
+                $envio->alto,
+                $envio->ancho,
+                $envio->profundidad,
+                $envio->volumen,
+                $envio->costo,
+                $envio->descripcion,
+            ]);
+            $writer->addRow($row);
+        }
+
+        $writer->close(); 
+        exit;
+        
+        } else if (Auth::check() && $user->id_rol == 3) {
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('login')->with('error', 'No puedes ingresar a esta ruta.');
+        }
+    }
+
+    public function exportPDF()
+    {
+        $user = Auth::user();
+        if (Auth::check() && ($user->id_rol == 1 || $user->id_rol == 2)) {
+            $envios = Envios::all();
+            $pdf = PDF::loadView('envios.index', compact('envios'));
+            return $pdf->download('envios.pdf');
+        } else if (Auth::check() && $user->id_rol == 3) {
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('login')->with('error', 'No puedes ingresar a esta ruta.');
+        }
     }
 
     public function create()

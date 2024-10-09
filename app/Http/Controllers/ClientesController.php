@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ClientesExport;
 use App\Models\ClientesEnvios;
 use App\Models\Envios;
 use App\Models\Usuarios;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
-use Box\Spout\Common\Entity\Cell;
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ClientesController extends Controller
 {
@@ -65,23 +63,26 @@ class ClientesController extends Controller
         $writer->openToBrowser('clientes.xlsx'); // Este método enviará el archivo al navegador
 
         // Escribir encabezados
-        $header = [Cell::fromString('Nombre'), Cell::fromString('Apellido'), Cell::fromString('Correo'), Cell::fromString('Teléfono'), Cell::fromString('Dirección')];
-        $writer->addRow($header);
+        $headerRow = WriterEntityFactory::createRowFromArray([
+            'Nombre', 'Apellido', 'Correo', 'Teléfono', 'Dirección'
+        ]);
+        $writer->addRow($headerRow);
 
         // Escribir datos
         foreach ($clientes as $cliente) {
-            $row = [
-                Cell::fromString($cliente->nombre),
-                Cell::fromString($cliente->apellido),
-                Cell::fromString($cliente->correo),
-                Cell::fromString($cliente->telefono),
-                Cell::fromString($cliente->direccion)
-            ];
+            $row = WriterEntityFactory::createRowFromArray([
+                $cliente->nombre,
+                $cliente->apellido,
+                $cliente->correo,
+                $cliente->telefono,
+                $cliente->direccion,
+            ]);
             $writer->addRow($row);
         }
 
         $writer->close(); 
         exit;
+        
         } else if (Auth::check() && $user->id_rol == 3) {
             return redirect()->route('home');
         } else {
