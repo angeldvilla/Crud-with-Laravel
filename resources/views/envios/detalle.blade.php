@@ -33,19 +33,19 @@
                 </div>
                 @endif
 
-                <p class="text-white"><strong>Origen:</strong> {{ $envio->origen }}</p>
-                <p class="text-white"><strong>Destinatario:</strong> {{ $envio->destinatario }}</p>
+                <p><strong>Origen:</strong> {{ $envio->origen }}</p>
+                <p><strong>Destinatario:</strong> {{ $envio->destinatario }}</p>
                 <div class="grid grid-cols-2 gap-4 p-4 rounded-md mt-4">
-                    <p class="text-white"><strong>Peso:</strong> {{ $envio->peso }} Kg</p>
-                    <p class="text-white"><strong>Alto:</strong> {{ $envio->alto }} cm</p>
-                    <p class="text-white"><strong>Ancho:</strong> {{ $envio->ancho }} cm</p>
-                    <p class="text-white"><strong>Profundidad:</strong> {{ $envio->profundidad }} cm</p>
-                    <p class="text-white"><strong>Volumen:</strong> {{ $envio->volumen }} cm³</p>
+                    <p><strong>Peso:</strong> {{ $envio->peso }} Kg</p>
+                    <p><strong>Alto:</strong> {{ $envio->alto }} cm</p>
+                    <p><strong>Ancho:</strong> {{ $envio->ancho }} cm</p>
+                    <p><strong>Profundidad:</strong> {{ $envio->profundidad }} cm</p>
+                    <p><strong>Volumen:</strong> {{ $envio->volumen }} cm³</p>
                 </div>
 
 
-                <p class="text-white mt-2 mb-4"><strong>Costo:</strong> <span class="text-green-500"> ${{ $envio->costo }} COP</span></p>
-                <p class="text-white"><strong>Descripción:</strong> {{ $envio->descripcion }}</p>
+                <p class="mt-2 mb-4"><strong>Costo:</strong> <span class="text-green-500"> ${{ $envio->costo }} COP</span></p>
+                <p><strong>Descripción:</strong> {{ $envio->descripcion }}</p>
 
 
                 <div class="bg-gray-100 p-4 rounded-md mt-4">
